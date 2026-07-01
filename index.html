@@ -55,13 +55,13 @@ nav {
   text-decoration: none; transition: color 0.2s;
 }
 .nav-links a:hover { color: var(--text); }
-.btn-nav {
+.nav-links a.btn-nav {
   background: var(--dark); color: var(--white);
   padding: 0.625rem 1.375rem; border-radius: 6px;
   font-size: 0.9375rem; font-weight: 600; text-decoration: none;
   transition: background 0.2s, transform 0.2s;
 }
-.btn-nav:hover { background: #222; transform: translateY(-1px); }
+.nav-links a.btn-nav:hover { background: #222; color: var(--white); transform: translateY(-1px); }
 .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 4px; }
 .hamburger span { display: block; width: 22px; height: 2px; background: var(--dark); transition: all 0.3s; }
 .hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
@@ -188,28 +188,28 @@ nav {
 
 /* SERVIÇOS */
 .servicos-section { background: var(--dark); padding: 6rem 2rem; }
-.servicos-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 3rem; }
+.servicos-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; margin-top: 3rem; }
 .servico-card {
-  background: var(--dark-3); border: 1px solid rgba(255,255,255,0.06);
-  border-radius: 12px; padding: 2rem;
-  transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
-  position: relative; overflow: hidden;
+  position: relative; border-radius: 14px; overflow: hidden;
+  min-height: 320px; padding: 2rem;
+  display: flex; flex-direction: column; justify-content: flex-end;
+  background-size: cover; background-position: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
-.servico-card::before {
-  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
-  background: var(--accent); transform: scaleX(0); transform-origin: left;
-  transition: transform 0.3s ease;
+.servico-card::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(10,10,10,0.05) 0%, rgba(10,10,10,0.55) 55%, rgba(10,10,10,0.92) 100%);
 }
-.servico-card:hover::before { transform: scaleX(1); }
-.servico-card:hover { border-color: rgba(245,166,35,0.2); transform: translateY(-4px); box-shadow: 0 16px 48px rgba(0,0,0,0.3); }
+.servico-card:hover { transform: translateY(-4px); box-shadow: 0 16px 48px rgba(0,0,0,0.4); }
+.servico-card > * { position: relative; z-index: 1; }
 .servico-icon {
   width: 48px; height: 48px; border-radius: 8px;
-  background: rgba(245,166,35,0.12); border: 1px solid rgba(245,166,35,0.2);
+  background: var(--accent); border: 1px solid rgba(245,166,35,0.2);
   display: flex; align-items: center; justify-content: center;
-  color: var(--accent); margin-bottom: 1.5rem;
+  color: var(--dark); margin-bottom: 1.5rem;
 }
-.servico-card h3 { font-size: 1.125rem; font-weight: 700; color: var(--white); margin-bottom: 0.75rem; }
-.servico-card p { font-size: 0.9rem; color: rgba(255,255,255,0.45); line-height: 1.7; }
+.servico-card h3 { font-size: 1.25rem; font-weight: 800; color: var(--white); margin-bottom: 0.625rem; }
+.servico-card p { font-size: 0.9rem; color: rgba(255,255,255,0.65); line-height: 1.7; max-width: 420px; }
 
 /* PROCESSO */
 .processo-section { background: var(--light); padding: 6rem 2rem; }
@@ -235,36 +235,19 @@ nav {
 .passo p { font-size: 0.9rem; color: var(--text-muted); line-height: 1.65; }
 
 /* REVIEWS */
-.reviews-section { background: var(--light-2); padding: 6rem 2rem; overflow: hidden; }
-.reviews-track-wrap { overflow: hidden; margin-top: 3rem; position: relative; }
-.reviews-track-wrap::before, .reviews-track-wrap::after {
-  content: ''; position: absolute; top: 0; bottom: 0; width: 80px; z-index: 2;
-}
-.reviews-track-wrap::before { left: 0; background: linear-gradient(to right, var(--light-2), transparent); }
-.reviews-track-wrap::after { right: 0; background: linear-gradient(to left, var(--light-2), transparent); }
-.reviews-track {
-  display: flex; gap: 1.25rem; width: max-content;
-  animation: scrollReviews 36s linear infinite;
-}
-.reviews-track:hover { animation-play-state: paused; }
-@keyframes scrollReviews { from { transform: translateX(0); } to { transform: translateX(-50%); } }
-@media (prefers-reduced-motion: reduce) { .reviews-track { animation: none; } }
+.reviews-section { background: var(--light-2); padding: 6rem 2rem; }
+.reviews-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 3rem; }
 .review-card {
-  min-width: 340px; background: var(--white);
-  border: 1px solid rgba(0,0,0,0.06); border-radius: 12px;
-  padding: 1.75rem; flex-shrink: 0;
+  background: var(--white); border-radius: 10px;
+  border-left: 4px solid var(--accent);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+  padding: 1.75rem; transition: transform 0.25s, box-shadow 0.25s;
 }
-.review-stars { color: var(--accent); font-size: 1rem; margin-bottom: 1rem; }
-.review-text { font-size: 0.9rem; color: var(--text); line-height: 1.7; margin-bottom: 1.25rem; }
-.review-author { display: flex; align-items: center; gap: 0.75rem; }
-.review-avatar {
-  width: 38px; height: 38px; border-radius: 999px;
-  background: rgba(245,166,35,0.12); border: 1px solid rgba(245,166,35,0.2);
-  display: flex; align-items: center; justify-content: center;
-  font-weight: 700; font-size: 0.8125rem; color: var(--accent);
-}
-.review-name { font-size: 0.9rem; font-weight: 600; color: var(--text); }
-.review-role { font-size: 0.8rem; color: var(--text-muted); }
+.review-card:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(0,0,0,0.08); }
+.review-stars { color: var(--accent); font-size: 1rem; letter-spacing: 2px; margin-bottom: 1rem; }
+.review-text { font-size: 0.9375rem; color: var(--text); line-height: 1.7; margin-bottom: 1.5rem; font-style: italic; }
+.review-name { font-size: 0.9375rem; font-weight: 700; color: var(--text); }
+.review-role { font-size: 0.8125rem; color: var(--text-muted); margin-top: 0.15rem; }
 
 /* CONTACTO */
 .contacto-section { background: var(--dark); padding: 6rem 2rem; }
@@ -355,6 +338,7 @@ footer { background: #060606; padding: 2rem; text-align: center; border-top: 1px
   .hero-graphic { display: none; }
   .quem-somos-grid { grid-template-columns: 1fr; gap: 3rem; }
   .servicos-grid { grid-template-columns: 1fr; }
+  .reviews-grid { grid-template-columns: 1fr; }
   .processo-steps { grid-template-columns: 1fr; }
   .processo-steps::before { display: none; }
   .contacto-grid { grid-template-columns: 1fr; gap: 3rem; }
@@ -532,47 +516,33 @@ footer { background: #060606; padding: 2rem; text-align: center; border-top: 1px
       <p style="color:rgba(255,255,255,0.45);font-size:1.0625rem;line-height:1.75;">Instalações elétricas e de telecomunicações executadas com rigor e materiais certificados, para habitações e empresas.</p>
     </div>
     <div class="servicos-grid">
-      <div class="servico-card reveal">
-        <div class="servico-icon">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.5 12 3l9 6.5V21a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1z"/></svg>
-        </div>
-        <h3>Instalações Residenciais</h3>
-        <p>Instalações elétricas em moradias e apartamentos. Quadros, tomadas, iluminação e circuitos com certificação incluída.</p>
-      </div>
-      <div class="servico-card reveal">
-        <div class="servico-icon">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v16M15 21V9h4a2 2 0 0 1 2 2v10M7 7h4M7 11h4M7 15h4"/></svg>
-        </div>
-        <h3>Instalações Comerciais</h3>
-        <p>Projetos elétricos para escritórios, lojas e espaços industriais. Dimensionamento e execução certificados pela DGEG.</p>
-      </div>
-      <div class="servico-card reveal">
-        <div class="servico-icon">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 7h2M8 11h2M8 15h2M14 7h2M14 11h2M14 15h2"/></svg>
-        </div>
-        <h3>Quadros Elétricos</h3>
-        <p>Montagem, substituição e certificação de quadros residenciais e industriais conforme as normas DGEG em vigor.</p>
-      </div>
-      <div class="servico-card reveal">
-        <div class="servico-icon">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
-        </div>
-        <h3>Telecomunicações</h3>
-        <p>Infraestruturas de rede, fibra ótica, TV e sistemas de comunicação para habitações e empresas.</p>
-      </div>
-      <div class="servico-card reveal">
+      <div class="servico-card reveal" style="background-image:url('https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=900&q=70');">
         <div class="servico-icon">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg>
         </div>
-        <h3>Urgências e Avarias</h3>
-        <p>Resposta rápida a avarias elétricas e de telecomunicações. Diagnóstico no local e resolução imediata.</p>
+        <h3>Instalações Elétricas Residenciais e Comerciais</h3>
+        <p>Eletrificação de moradias, apartamentos, escritórios e espaços comerciais. Quadros, tomadas, iluminação e circuitos com certificação incluída.</p>
       </div>
-      <div class="servico-card reveal">
+      <div class="servico-card reveal" style="background-image:url('https://images.unsplash.com/photo-1758101755915-462eddc23f57?auto=format&fit=crop&w=900&q=70');">
         <div class="servico-icon">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 7h2M8 11h2M8 15h2M14 7h2M14 11h2M14 15h2"/></svg>
         </div>
-        <h3>Certificações DGEG</h3>
-        <p>Emissão de certificados de conformidade elétrica para imóveis novos, remodelados ou para venda/arrendamento.</p>
+        <h3>Quadros Elétricos e Certificações DGEG</h3>
+        <p>Montagem, substituição e certificação de quadros residenciais e industriais, com emissão de certificados de conformidade DGEG.</p>
+      </div>
+      <div class="servico-card reveal" style="background-image:url('https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&w=900&q=70');">
+        <div class="servico-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v16M15 21V9h4a2 2 0 0 1 2 2v10M7 7h4M7 11h4M7 15h4"/></svg>
+        </div>
+        <h3>Telecomunicações e Redes de Dados</h3>
+        <p>Cablagem estruturada, fibra ótica, redes de computadores e infraestrutura de comunicação para habitações e empresas.</p>
+      </div>
+      <div class="servico-card reveal" style="background-image:url('https://images.unsplash.com/photo-1676630656246-3047520adfdf?auto=format&fit=crop&w=900&q=70');">
+        <div class="servico-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.3 1.8.6 2.6a2 2 0 0 1-.5 2.1L8.1 9.6a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.5c.8.3 1.7.5 2.6.6a2 2 0 0 1 1.7 2z"/></svg>
+        </div>
+        <h3>Urgências e Assistência Técnica</h3>
+        <p>Resposta rápida a avarias elétricas e de telecomunicações. Diagnóstico no local e resolução imediata.</p>
       </div>
     </div>
   </div>
@@ -619,47 +589,25 @@ footer { background: #060606; padding: 2rem; text-align: center; border-top: 1px
       </div>
     </div>
   </div>
-  <div class="reviews-track-wrap">
-    <div class="reviews-track" id="reviews-track">
-      <div class="review-card">
+  <div class="section-inner">
+    <div class="reviews-grid">
+      <div class="review-card reveal">
         <div class="review-stars">★★★★★</div>
         <p class="review-text">"Contratei a Rtelec para instalar o quadro elétrico em casa nova em Lousada. Vieram na data combinada, explicaram tudo com clareza e o trabalho ficou impecável."</p>
-        <div class="review-author">
-          <div class="review-avatar">JM</div>
-          <div><div class="review-name">João M.</div><div class="review-role">Cliente particular · Lousada</div></div>
-        </div>
+        <div class="review-name">João M.</div>
+        <div class="review-role">Cliente particular, Lousada</div>
       </div>
-      <div class="review-card">
+      <div class="review-card reveal">
         <div class="review-stars">★★★★★</div>
         <p class="review-text">"Precisávamos de infraestrutura de telecomunicações no escritório. A Rtelec resolveu tudo rapidamente e com profissionalismo. Recomendo sem hesitar."</p>
-        <div class="review-author">
-          <div class="review-avatar">AS</div>
-          <div><div class="review-name">Ana S.</div><div class="review-role">Empresa local · Lousada</div></div>
-        </div>
+        <div class="review-name">Ana S.</div>
+        <div class="review-role">Empresa local, Lousada</div>
       </div>
-      <div class="review-card">
+      <div class="review-card reveal">
         <div class="review-stars">★★★★★</div>
         <p class="review-text">"Chamei para uma avaria elétrica urgente. Responderam no próprio dia e resolveram o problema sem complicações. Serviço de confiança."</p>
-        <div class="review-author">
-          <div class="review-avatar">CR</div>
-          <div><div class="review-name">Carlos R.</div><div class="review-role">Cliente particular · Lousada</div></div>
-        </div>
-      </div>
-      <div class="review-card">
-        <div class="review-stars">★★★★★</div>
-        <p class="review-text">"Já usámos a Rtelec duas vezes — instalação de tomadas e depois a fibra. Sempre pontuais e com bom preço. Empresa séria e de confiança."</p>
-        <div class="review-author">
-          <div class="review-avatar">MF</div>
-          <div><div class="review-name">Marta F.</div><div class="review-role">Moradora · Felgueiras</div></div>
-        </div>
-      </div>
-      <div class="review-card">
-        <div class="review-stars">★★★★★</div>
-        <p class="review-text">"Pedi orçamento para remodelação elétrica completa. Resposta em poucas horas, preço justo e execução rápida. Muito satisfeito com o resultado."</p>
-        <div class="review-author">
-          <div class="review-avatar">RP</div>
-          <div><div class="review-name">Rui P.</div><div class="review-role">Cliente particular · Paços de Ferreira</div></div>
-        </div>
+        <div class="review-name">Carlos R.</div>
+        <div class="review-role">Cliente particular, Lousada</div>
       </div>
     </div>
   </div>
@@ -786,9 +734,6 @@ footer { background: #060606; padding: 2rem; text-align: center; border-top: 1px
     });
   }, { threshold: 0.1, rootMargin: '0px 0px -6% 0px' });
   revealEls.forEach(function(el) { obs.observe(el); });
-
-  const track = document.getElementById('reviews-track');
-  if (track) { track.innerHTML += track.innerHTML; }
 
   const form = document.getElementById('contact-form');
   const success = document.getElementById('form-success');
